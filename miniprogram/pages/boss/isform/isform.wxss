@@ -1,0 +1,99 @@
+@import "../../../lib/style/icon.wxss";
+@import "../../../lib/style/weui/weui.wxss";
+
+page{
+    background-color: #F8F8F8;
+    font-size: 16px;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.flex-center {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-left {
+  display: flex; 
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.line{
+margin: 20rpx 0rpx 20rpx 0rpx;
+width: 100%;
+height: 7rpx;
+background-color: #D8D8D8;
+}
+
+.thin-line{
+  width: 100%;
+  height: 1rpx;
+  background-color: #D8D8D8;
+  margin: 30rpx 0rpx 2rpx 15rpx;
+}
+
+.input-flex {
+  display: flex;
+  padding: 20rpx 0rpx 0rpx 15rpx;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.column-font-size {
+  font-size: 32rpx;
+  /* font-weight: bold; */
+  color: #BFBFBF;
+  width: 20%;
+}
+
+.input-style {
+  font-size: large;
+  width: 75%;
+}
+
+.radio {
+  font-size: large;
+  transform: scale(0.8);
+  width: 30%;
+}
+
+.textarea-style {
+  font-size: large;
+  width: 75%;
+  height: 3em;
+}
+
+.wrap{
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.label-style{
+  font-size: 30rpx;
+  size: mini;
+  margin: 10rpx 20rpx 0rpx 0rpx;
+}
+
+.align-flex {
+  display:flex;
+  flex-direction: column; 
+  padding: 0rpx 0rpx 0rpx 15rpx;
+}
+
+.q-image-wrap {
+  width: 31%;
+  margin-right: 10rpx;
+}
+
+.q-image {
+  width: 135rpx;
+  height: 135rpx;
+  margin: 20rpx;
+  /* border-radius: 100%; */
+  background-size: cover;
+  background-color: white;
+}

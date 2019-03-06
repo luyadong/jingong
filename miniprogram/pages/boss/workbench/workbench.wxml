@@ -1,0 +1,54 @@
+<import src="../../../lib/template/boss/template.wxml"/>
+<template is="tabbar" data="{{tabbar}}"/>
+
+<view class="swiper-tab" style="position:absolute; top:0;width: {{windowWidth}}rpx;">
+    <view class="swiper-tab-item {{currentTab==false?'active':''}}" data-current='{{false}}' bindtap="clickTab">进行中</view>
+    <view class="swiper-tab-item {{currentTab==true?'active':''}}" data-current='{{true}}' bindtap="clickTab">已完成</view>
+</view>
+<scroll-view 
+  scroll-y
+  scroll-top="{{scrollTop}}"
+  bindscrolltolower="bindDownLoad" 
+  bindscroll="scroll"
+  style='height: {{scrollHeight}}rpx; width: {{windowWidth}}rpx; margin-top: 88rpx'
+>
+  <view class="weui-form-preview" style="display: block; width: {{windowWidth}}rpx;" wx:for="{{workList}}" wx:key="_id">
+      <view class="weui-form-preview__hd">
+          <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">工单类型</view>
+              <view class="weui-form-preview__value_in-hd">{{item.workType}}</view>
+          </view>
+      </view>
+      <view class="weui-form-preview__bd">
+          <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">工单状态</view>
+              <view class="weui-form-preview__value">{{item.status}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">详细地址</view>
+              <view class="weui-form-preview__value">{{item.address}}</view>
+          </view>
+          <view class="weui-form-preview__item">
+              <view class="weui-form-preview__label">日期</view>
+              <view class="weui-form-preview__value">{{item.date}}</view>
+          </view>
+      </view>
+      
+      <view wx:if="{{item.finish === false }}">
+        <view class="weui-form-preview__ft">
+            <button data-id='{{item._id}}' class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active">结束</button> 
+            <button data-id='{{item._id}}' class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">修改</button>
+        </view>
+      </view>
+      <view wx:else>
+      <view class="weui-form-preview__ft">
+          <van-button data-id='{{item._id}}' class="weui-form-preview__btn weui-form-preview__btn_default" hover-class="weui-form-preview__btn_active" bindtap="delClick">删除</van-button>
+      </view>
+      </view>
+  </view>
+  <view hidden='{{endHidden}}' ><view style='display: flex; justify-content: center; color: #999; font-size: 0.9em; padding-bottom: 10rpx'>-------全部加载完成-------</view></view>
+</scroll-view>
+<van-dialog id="van-dialog" />
+
+
+

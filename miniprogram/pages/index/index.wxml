@@ -1,0 +1,37 @@
+<!--index.wxml-->
+<view class="container">
+
+  <view class="identity">
+    <text class="identity-title">请选择您的身份</text>
+  </view>
+
+  <!-- 操作数据库 -->
+  <view class="identity" style="display: flex; flex-direction: row; align-items: center">
+    <!-- <view>
+      <image class="imagestyle" mode="{{item.mode}}" src="../../images/boss.png"></image>
+    </view> -->
+    <button
+    open-type="getUserInfo" 
+    bindgetuserinfo="onBossRediect"
+    class="button button-3d button-caution"
+    >
+      我要发活儿
+    </button>
+  </view>
+
+  <!-- 新建云函数 -->
+  <view class="uploader" style="display: flex; flex-direction: row; align-items: center">
+    <!-- <view>
+      <image class="imagestyle" mode="{{item.mode}}" src="../../images/gongren.png"></image>
+    </view> -->
+    <view>
+      <button
+      open-type="getUserInfo" 
+      bindgetuserinfo="onWorkRediect"
+      class="button button-3d button-royal"
+      >
+        我要找活儿
+      </button>
+    </view>
+  </view>
+</view>

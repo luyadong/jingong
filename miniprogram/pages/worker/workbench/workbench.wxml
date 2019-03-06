@@ -1,0 +1,5 @@
+<import src="../../../lib/template/work/template.wxml"/>
+<template is="tabbar" data="{{tabbar}}"/>
+<view>
+<a>worker_workbench</a>
+</view>

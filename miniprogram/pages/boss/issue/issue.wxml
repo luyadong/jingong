@@ -1,0 +1,47 @@
+<import src="../../../lib/template/boss/template.wxml"/>
+<template is="tabbar" data="{{tabbar}}"/>
+<view>
+  <view class="td">
+    <image class="line-image" mode="{{item.mode}}" src="../../../images/line.png"></image>
+    <text class='font-title'>热门工种</text>
+  </view>
+  <view class='line'></view>
+
+  <view class='icon-flex'>
+    <view class='icon-flex-size' data-work-type="水电工" bindtap='issueRedirect'>
+      <i class='iconfont icon-shuidian' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>水电工</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="木工" bindtap='issueRedirect'>
+      <i class='iconfont icon-mugong' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>木工</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="瓦工" bindtap='issueRedirect'>
+      <i class='iconfont icon-niwa' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>瓦工</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="油工" bindtap='issueRedirect'>
+      <i class='iconfont icon-youqi' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>油工</text>
+    </view>
+  </view>
+
+  <view class='icon-flex'>
+    <view class='icon-flex-size' data-work-type="小工" bindtap='issueRedirect'>
+      <i class='iconfont icon-gongren' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>小工</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="拆除" bindtap='issueRedirect'>
+      <i class='iconfont icon-chaigai' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>拆除</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="打孔" bindtap='issueRedirect'>
+      <i class='iconfont icon-zuankongtongji' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>打孔</text>
+    </view>
+    <view class='icon-flex-size' data-work-type="渣土清运" bindtap='issueRedirect'>
+      <i class='iconfont icon-che-tianchong' style='color:#D81E06;font-size:70rpx;'></i>
+      <text class='font-context'>渣土清运</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,50 @@
+/**index.wxss**/
+@import "../../lib/style/button.wxss";
+
+page {
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.identity {
+  margin-top: 40rpx;
+  height: 140rpx;
+  background: #f6f6f6;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; 
+  transition: all 300ms ease;
+}
+
+.identity-title {
+  width: 100%;
+  line-height: 80px;
+  font-size: 30rpx;
+  color: #E24447;
+}
+
+.identity-little {
+  width: 100%;
+  line-height: 80px;
+  font-size: 30rpx;
+  color: #A2A1A0;
+}
+
+.identity-select {
+  width: 100%;
+  line-height: 80px;
+  font-size: 40rpx;
+  color: #A2A1A0;
+}
+
+.imagestyle {
+  width: 50px; 
+  height: 50px; 
+  background-size: cover; 
+  border-radius: 80%;
+}

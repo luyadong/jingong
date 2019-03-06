@@ -1,0 +1,179 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells__title">计费类型</view>
+        <view class="weui-cells weui-cells_after-title">
+            <radio-group bindchange="radioChange">
+                <label class="weui-cell weui-check__label" wx:for="{{priceMethod}}" wx:key="name">
+                    <radio class="weui-check" value="{{item.name}}" checked="{{item.checked}}"/>
+
+                    <view class="weui-cell__bd">{{item.value}}</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                    </view>
+                </label>
+            </radio-group>
+        </view>
+
+        <view wx:if="{{chargeType === 'hour'}}">
+          <view class="weui-cells__title">计费详情</view>
+          <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell weui-cell_input">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">工资(元/天)</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" type="number" id='pay' bindinput='bindFormDataUpdate' placeholder="面议"/>
+                  </view>
+              </view>
+              <view class="weui-cell weui-cell_input weui-cell_vcode">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">预估天数</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" id='days' bindinput='bindFormDataUpdate' placeholder="面议" />
+                  </view>
+              </view>
+              <view class="weui-cell weui-cell_input">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">所需人数</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" id='people' bindinput='bindFormDataUpdate' />
+                  </view>
+              </view>
+          </view>
+          <view class="weui-cells__tips">人数必填，工资和预估天数可以面议</view>
+        </view>
+        <view wx:else>
+          <view class="weui-cells__title">计费详情</view>
+          <view class="weui-cells weui-cells_after-title">
+              <view class="weui-cell weui-cell_input">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">预估价格(元)</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" type="number" id='pay' bindinput='bindFormDataUpdate' placeholder="面议"/>
+                  </view>
+              </view>
+              <view class="weui-cell weui-cell_input weui-cell_vcode">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">施工量</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" id='days' bindinput='bindFormDataUpdate' placeholder="面议" />
+                  </view>
+              </view>
+              <view class="weui-cell weui-cell_input">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">工期</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" id='people' bindinput='bindFormDataUpdate' />
+                  </view>
+              </view>
+          </view>
+          <view class="weui-cells__tips">人数必填，工资和预估天数可以面议</view>        
+        </view>
+
+        <view class="weui-cells__title">施工信息</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">所在城市</view>
+                </view>
+                <view class="weui-cell__bd">
+                  <picker mode="region" id='city' bindchange="bindFormDataUpdate" value="{{region}}" custom-item="{{customItem}}">
+                    <view class="weui-input">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
+                  </picker>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">详细地址</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" id='address' bindinput='bindFormDataUpdate' placeholder="输入关键字" />
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">开工时间</view>
+                </view>
+                <picker mode="date" id='date' value="{{date}}" start="2018-09-01" end="2050-12-31" bindchange="bindFormDataUpdate">
+                  <view class="weui-input">{{date}}</view>
+                </picker>
+            </view>
+            <view class="weui-cells weui-cells_after-title">
+                <view class="weui-cell weui-cell_select">
+                    <view class="weui-cell__hd" style="width: 105px">
+                        <picker bindchange="bindCountryCodeChange" value="{{countryCodeIndex}}" range="{{countryCodes}}">
+                            <view class="weui-select">{{countryCodes[countryCodeIndex]}}</view>
+                        </picker>
+                    </view>
+                    <view class="weui-cell__bd weui-cell__bd_in-select-before">
+                        <input class="weui-input" type="number" id='phoneNumber' bindinput='bindFormDataUpdate' placeholder="请输入号码" />
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">施工备注</view>
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" id='remark' bindinput='bindFormDataUpdate' placeholder="备注" style="height: 3.3em" />
+                    <view class="weui-textarea-counter">0/200</view>
+                </view>
+            </view>
+        </view>
+
+        <view class="weui-cells__title">标签</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="wrap">
+            <block wx:for="{{labels}}" wx:key="id">
+              <button class='label-style' id="{{item.id}}" type="{{item.type}}" bindtap='bindMarkChecked'>{{item.value}}</button>
+            </block>
+          </view>
+        </view>
+
+        <view class="weui-cells">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class="weui-uploader">
+                        <view class="weui-uploader__hd">
+                            <view class="weui-uploader__title">图片上传(长按删除)</view>
+                            <view class="weui-uploader__info">{{images.length}}/7</view>
+                        </view>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__files" id="uploaderFiles">
+                                <block wx:for="{{images}}" wx:key="*this">
+                                    <view class="weui-uploader__file" bindtap="handleImagePreview" bindlongpress="deleteImage" id="{{item}}">
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
+                                    </view>
+                                </block>
+                            </view>
+                            <view class="weui-uploader__input-box" wx:if="{{images.length < 7}}">
+                                <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <checkbox-group bindchange="bindAgreeChange">
+            <label class="weui-agree" for="weuiAgree">
+                <view class="weui-agree__text">
+                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+                    <view class="weui-agree__checkbox-icon">
+                        <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+                    </view>
+                    阅读并同意<navigator url="" class="weui-agree__link">《相关条款》</navigator>
+                </view>
+            </label>
+        </checkbox-group>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+        </view>
+    </view>
+</view>

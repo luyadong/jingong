@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/boss/issue/issue",
+    "pages/boss/isform/isform",
+    "pages/boss/workbench/workbench",
+    "pages/boss/uc/uc",
+    "pages/worker/list/list",
+    "pages/worker/workbench/workbench",
+    "pages/worker/uc/uc"
+  ],
+  "window": {
+    "backgroundColor": "#F6F2EF",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#E24447",
+    "navigationBarTitleText": "金工",
+    "navigationBarTextStyle": "white"
+  },
+  "plugins": {
+    "sdkPlugin": {
+      "version": "1.16.0",
+      "provider": "wxc6b86e382a1e3294"
+    }
+  }
+}

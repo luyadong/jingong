@@ -1,0 +1,3 @@
+<import src="../../../lib/template/work/template.wxml"/>
+<template is="tabbar" data="{{tabbar}}"/>
+<view>接单大厅</view>

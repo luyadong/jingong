@@ -1,0 +1,54 @@
+@import "../../../lib/style/icon.wxss";
+@import "../../../lib/template/boss/template.wxss";
+
+page {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.line{
+margin: 20rpx 0rpx 20rpx 15rpx;
+width: 100%;
+height: 3rpx;
+background-color: #D8D8D8;
+}
+
+.line-image {
+  width: 30px; 
+  height: 35px; 
+  background-size: cover; 
+  border-radius: 80%;
+}
+
+.td {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0rpx 0rpx 0rpx;
+}
+
+.font-title {
+  font-size: large;
+  font-weight: bold;
+  color: #D81E06;
+}
+
+.icon-flex {
+  display: flex;
+  padding: 20rpx 0rpx 0rpx 0rpx;
+  justify-content: space-around;
+}
+
+.icon-flex-size {
+  width: 25%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+.font-context {
+  font-size: smaller;
+  color: #D81E06;
+}
