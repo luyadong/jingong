@@ -1,1 +1,5 @@
-{}
+{
+    "usingComponents": {
+      "van-notify": "/lib/style/vant-weapp/dist/notify/index"
+    }
+}

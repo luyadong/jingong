@@ -35,10 +35,10 @@
                     </view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>
-                <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <navigator url="/pages/boss/mydel/mydel" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
                     <view class="weui-cell__hd"><image src="../../../images/uc/bar.png" style="width: 20px;height: 20px;margin-right: 10px;margin-top: 5px" /></view>
                     <view class="weui-cell__bd weui-cell_primary">
-                        <view>我发的单</view>
+                        <view>我的删除</view>
                     </view>
                     <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                 </navigator>

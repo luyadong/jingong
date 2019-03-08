@@ -1,16 +1,9 @@
-<import src="../../../lib/template/boss/template.wxml"/>
-<template is="tabbar" data="{{tabbar}}"/>
-
-<view class="swiper-tab" style="position:absolute; top:0;width: {{windowWidth}}px;">
-    <view class="swiper-tab-item {{currentTab==false?'active':''}}" data-current='{{false}}' bindtap="clickTab">进行中</view>
-    <view class="swiper-tab-item {{currentTab==true?'active':''}}" data-current='{{true}}' bindtap="clickTab">已完成</view>
-</view>
 <scroll-view 
   scroll-y
   scroll-top="{{scrollTop}}"
   bindscrolltolower="bindDownLoad" 
   bindscroll="scroll"
-  style='height: {{scrollHeight}}rpx; width: {{windowWidth}}px; margin-top: 88rpx'
+  style='width: {{windowWidth}}px;'
 >
   <van-panel title="工单类型" status="{{item.workType}}" desc='{{item.status}}' style="display: block; width: {{windowWidth}}px; margin-bottom: 20px" wx:for="{{workList}}" wx:key="_id" use-footer-slot >
       <view class="weui-form-preview__bd" data-id='{{item._id}}' bindtap='checkClick'>
@@ -31,15 +24,8 @@
               <view class="weui-form-preview__value">{{item.status}}</view>
           </view>
       </view>
-
       <view slot="footer" style='text-align: right;'>
-        <view wx:if="{{item.finish === false }}">
-            <van-button button size="small" data-id='{{item._id}}' bindtap='changeClick' >修改</van-button> 
-            <van-button button size="small" type="danger" data-id='{{item._id}}' bindtap='finishClick' >结束</van-button>
-        </view>
-        <view wx:else>
-            <van-button button size="small" type="danger" data-id='{{item._id}}' bindtap="delClick">删除</van-button>
-        </view>
+        <van-button button size="small" type="danger" data-id='{{item._id}}' bindtap="delClick">彻底删除</van-button>
       </view>
   </van-panel>
   <view hidden='{{endHidden}}' ><view style='display: flex; justify-content: center; color: #999; font-size: 0.9em; padding-bottom: 10rpx'>-------全部加载完成-------</view></view>

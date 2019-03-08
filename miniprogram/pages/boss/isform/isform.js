@@ -1,6 +1,8 @@
 import { promisify } from '../../../lib/utils/promise.js'
+import Notify from '../../../lib/style/vant-weapp/dist/notify/notify'
 let MyFile = new wx.BaaS.File()
 const wxUploadFile = promisify(MyFile.upload)
+var MyTableObject = new wx.BaaS.TableObject('workflow')
 var app = getApp();
 
 Page({
@@ -33,6 +35,32 @@ Page({
     isAgree: false
   },
   onLoad: function (options) {
+    if (options.id){
+      console.log(options.id)
+      var query = new wx.BaaS.Query()
+      query.compare('_id', '=', options.id)
+      MyTableObject.setQuery(query).find().then(res => {
+        console.log(res)
+        const wkInfo = res.data.objects
+        if (wkInfo.length === 1){
+          const date = wkInfo[0].date.split("T")[0]
+          const images = wkInfo[0].fileIDs
+          console.log(images)
+          this.setData({
+            ...wkInfo[0],
+            date,
+            images
+          })
+        }else{
+          Notify({
+            text: '获取工单信息失败',
+            duration: 1000,
+            backgroundColor: '#1989fa'
+          });
+        }
+      })
+      return true
+    }
     // 頁面初始化 options為頁面跳轉所帶來的參數
     this.setData({
       workType: options.workType
@@ -64,6 +92,7 @@ Page({
     console.log("bargain==>", this.data.bargain)
   },
   bindFormDataUpdate: function (e) {
+    console.log(e)
     const Int_colum = ['days', 'pay', 'people', ]
     var key = e.currentTarget.id
     let value = e.detail.value
@@ -175,6 +204,7 @@ Page({
       return res.map(item => item.path)
     }).catch(err => {
       console.log(">>>> upload images error:", err)
+      return
     }).then(fileIDs => {
       const data = {
         priceMethod: this.data.priceMethod,
@@ -182,7 +212,7 @@ Page({
         pay: this.data.pay,
         days: this.data.days,
         people: this.data.people,
-        city: this.data.city,
+        region: this.data.region,
         address: this.data.address,
         date: this.data.date,
         phoneNumber: this.data.phoneNumber,
@@ -199,7 +229,7 @@ Page({
       let MyRecord = MyTableObject.create()
       MyRecord.set(data).save().then(res=>{
         wx.hideLoading()
-        wx.navigateTo({
+        wx.redirectTo({
           url: "/pages/boss/workbench/workbench",
         })
       },err=>{

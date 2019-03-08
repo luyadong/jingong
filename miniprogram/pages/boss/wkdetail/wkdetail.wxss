@@ -1,0 +1,27 @@
+@import "../../../lib/template/boss/template.wxss";
+@import "../../../lib/style/weui/weui.wxss";
+
+
+page{
+    background-color: #F8F8F8;
+    font-size: 16px;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.weui-form-preview{
+    margin-bottom: 15px;
+}
+
+.line{
+  margin: 10rpx 0rpx 10rpx 0rpx;
+  height: 2rpx;
+  background-color: #D8D8D8;
+}
+
+.wrap{
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

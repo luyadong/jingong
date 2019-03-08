@@ -5,6 +5,8 @@
     "pages/boss/isform/isform",
     "pages/boss/workbench/workbench",
     "pages/boss/uc/uc",
+    "pages/boss/wkdetail/wkdetail",
+    "pages/boss/mydel/mydel",
     "pages/worker/list/list",
     "pages/worker/workbench/workbench",
     "pages/worker/uc/uc"

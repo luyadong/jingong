@@ -25,7 +25,6 @@ Page({
   },
 
   issueRedirect: function(event) {
-    console.log(event.currentTarget.dataset.workType)
     wx.navigateTo({
       url: '/pages/boss/isform/isform?workType=' + event.currentTarget.dataset.workType,
     })

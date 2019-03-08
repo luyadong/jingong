@@ -22,7 +22,7 @@
                       <view class="weui-label">工资(元/天)</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" type="number" id='pay' bindinput='bindFormDataUpdate' placeholder="面议"/>
+                      <input class="weui-input" type="number" id='pay' value='{{pay}}' bindinput='bindFormDataUpdate' placeholder="面议"/>
                   </view>
               </view>
               <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -30,7 +30,7 @@
                       <view class="weui-label">预估天数</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" id='days' bindinput='bindFormDataUpdate' placeholder="面议" />
+                      <input class="weui-input" id='days' value='{{days}}' bindinput='bindFormDataUpdate' placeholder="面议" />
                   </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -38,7 +38,7 @@
                       <view class="weui-label">所需人数</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" id='people' bindinput='bindFormDataUpdate' />
+                      <input class="weui-input" id='people' value='{{people}}' bindinput='bindFormDataUpdate' />
                   </view>
               </view>
           </view>
@@ -52,7 +52,7 @@
                       <view class="weui-label">预估价格(元)</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" type="number" id='pay' bindinput='bindFormDataUpdate' placeholder="面议"/>
+                      <input class="weui-input" type="number" id='pay' value='{{pay}}' bindinput='bindFormDataUpdate' placeholder="面议"/>
                   </view>
               </view>
               <view class="weui-cell weui-cell_input weui-cell_vcode">
@@ -60,7 +60,7 @@
                       <view class="weui-label">施工量</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" id='days' bindinput='bindFormDataUpdate' placeholder="面议" />
+                      <input class="weui-input" id='days' value='{{days}}' bindinput='bindFormDataUpdate' placeholder="面议" />
                   </view>
               </view>
               <view class="weui-cell weui-cell_input">
@@ -68,7 +68,7 @@
                       <view class="weui-label">工期</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" id='people' bindinput='bindFormDataUpdate' />
+                      <input class="weui-input" id='people' value='{{people}}' bindinput='bindFormDataUpdate' />
                   </view>
               </view>
           </view>
@@ -82,7 +82,7 @@
                     <view class="weui-label">所在城市</view>
                 </view>
                 <view class="weui-cell__bd">
-                  <picker mode="region" id='city' bindchange="bindFormDataUpdate" value="{{region}}" custom-item="{{customItem}}">
+                  <picker mode="region" id='region' bindchange="bindFormDataUpdate" value="{{region}}" custom-item="{{customItem}}">
                     <view class="weui-input">{{region[0]}}，{{region[1]}}，{{region[2]}}</view>
                   </picker>
                 </view>
@@ -92,7 +92,7 @@
                     <view class="weui-label">详细地址</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input class="weui-input" id='address' bindinput='bindFormDataUpdate' placeholder="输入关键字" />
+                    <input class="weui-input" id='address' value='{{address}}' bindinput='bindFormDataUpdate' placeholder="输入关键字" />
                 </view>
             </view>
             <view class="weui-cell weui-cell_input">
@@ -111,7 +111,7 @@
                         </picker>
                     </view>
                     <view class="weui-cell__bd weui-cell__bd_in-select-before">
-                        <input class="weui-input" type="number" id='phoneNumber' bindinput='bindFormDataUpdate' placeholder="请输入号码" />
+                        <input class="weui-input" type="number" id='phoneNumber' value='{{phoneNumber}}' bindinput='bindFormDataUpdate' placeholder="请输入号码" />
                     </view>
                 </view>
             </view>
@@ -121,7 +121,7 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" id='remark' bindinput='bindFormDataUpdate' placeholder="备注" style="height: 3.3em" />
+                    <textarea class="weui-textarea" id='remark' value='{{remark}}' bindinput='bindFormDataUpdate' placeholder="备注" style="height: 3.3em" />
                     <view class="weui-textarea-counter">0/200</view>
                 </view>
             </view>
@@ -177,3 +177,4 @@
         </view>
     </view>
 </view>
+<van-notify id="van-notify" />
