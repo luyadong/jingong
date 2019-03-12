@@ -7,7 +7,7 @@
     left: 0;
     z-index: 999;
     width: 100%;
-    height: 120rpx;
+    height: 60px;
     border-top: 1rpx solid #EEEEE0; 
 }
 
@@ -16,11 +16,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 28rpx;
+    font-size: 25rpx;
     height: 100%;
 }
 
 .tabbar_icon{
-    width: 61rpx;
-    height: 61rpx;
+    width: 50rpx;
+    height: 50rpx;
 }

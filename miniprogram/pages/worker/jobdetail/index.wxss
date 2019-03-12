@@ -26,22 +26,41 @@ page{
   justify-content: flex-start;
 }
 
-.weui-form-preview__bd {
-  color: #000;
-  margin-top: 15rpx; 
-  background-color: #fff;
-}
-
 .confirm{
   position:absolute; 
+  bottom: 0px;
   display: flex; 
   flex-flow: row;
   height: 40px;
   line-height: 40px;
 }
 
+.preview__item{
+  overflow:hidden;
+}
+
+.preview__label {
+  min-width:4em;
+  color:#999;
+}
+
+.preview__value{
+  font-size:14px;
+  color: #000;
+  text-align: left;
+}
+
+.weui-form-preview__bd {
+  margin-top: 15rpx; 
+  background-color: #fff;
+  text-align: left;
+}
+
 .panel-header-class {
   color: red;
   font-weight: bold;
-  font-size: 35rpx;
+}
+
+.panel-custom-class {
+  margin-top: 10px;
 }

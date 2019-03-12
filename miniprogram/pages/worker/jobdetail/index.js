@@ -1,3 +1,4 @@
+import { creatIimeHandle } from '../../../lib/utils/common.js'
 var app = getApp();
 var MyTableObject = new wx.BaaS.TableObject('workflow')
 
@@ -17,7 +18,7 @@ Page({
       windowWidth: windowWidth
     })
     const id = options.id
-    if (!id){
+    if (!id) {
       Notify({
         text: '获取工单id失败',
         duration: 1000,
@@ -39,35 +40,36 @@ Page({
       mask: true
     })
     var query = new wx.BaaS.Query()
-    query.compare('openid', '=', openid)
     query.compare('_id', '=', id)
     MyTableObject.setQuery(query).find().then(res => {
       const wkList = res.data.objects
-      if (wkList && wkList.length === 1){
-        const { date, priceMethod, labels} = wkList[0]
+      if (wkList && wkList.length === 1) {
+        console.log("workList==>", wkList[0])
+        const { date, priceMethod, labels, region, address, created_at } = wkList[0]
         const _date = date.split("T")[0]
-
-        let _priceMethod = "priceMethod"
-        for (let i=0; i<priceMethod.length; i++){
-          if (priceMethod[i].checked){
-            _priceMethod = priceMethod[i].value
-            break
-          }
-        }
+        const _created_at = creatIimeHandle(created_at)
+        console.log("_created_at==>", _created_at)
         let _labels = []
-        for (let j=0; j<labels.length; j++){
-          if (labels[j].checked){
+        for (let j = 0; j < labels.length; j++) {
+          if (labels[j].checked) {
             _labels.push(labels[j].value)
           }
         }
+        let _address = ''
+        if (region.length > 0){
+          region.map(item=>_address+=item)
+        }
+        _address = _address + address
         this.setData({
           ...wkList[0],
           _date,
-          _priceMethod,
           _labels,
-          images: wkList[0].fileIDs
+          images: wkList[0].fileIDs,
+          _address,
+          _created_at
         })
-      }else{
+        console.log(this.data)
+      } else {
         Notify({
           text: '获取工单信息失败',
           duration: 1000,

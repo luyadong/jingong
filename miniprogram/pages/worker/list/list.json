@@ -1,1 +1,12 @@
-{}
+{
+  "usingComponents": {
+    "van-icon": "/lib/style/vant-weapp/dist/icon/index",
+    "van-button": "/lib/style/vant-weapp/dist/button/index",
+    "van-popup": "/lib/style/vant-weapp/dist/popup/index",
+    "van-tree-select": "/lib/style/vant-weapp/dist/tree-select/index",
+    "van-area": "/lib/style/vant-weapp/dist/area/index",
+    "van-panel": "/lib/style/vant-weapp/dist/panel/index",
+    "van-row": "/lib/style/vant-weapp/dist/row/index",
+    "van-col": "/lib/style/vant-weapp/dist/col/index"
+  }
+}

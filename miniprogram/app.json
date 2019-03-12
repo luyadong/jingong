@@ -8,6 +8,7 @@
     "pages/boss/wkdetail/wkdetail",
     "pages/boss/mydel/mydel",
     "pages/worker/list/list",
+    "pages/worker/jobdetail/index",
     "pages/worker/workbench/workbench",
     "pages/worker/uc/uc"
   ],

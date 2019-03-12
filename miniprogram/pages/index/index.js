@@ -38,6 +38,12 @@ Page({
         data: userInfo.openid,
       })
     }
+    if (userInfo.id){
+      wx.setStorage({
+        key: 'uid',
+        data: userInfo.id,
+      })
+    }
     wx.setStorage({
       key: 'logged',
       data: true,
@@ -48,6 +54,7 @@ Page({
     var logged = wx.getStorageSync("logged")
     if (!logged) {
       wx.BaaS.handleUserInfo(data).then(res => {
+        consoel.log(res)
         this.setLocalStorage(res)
       }, res => {
         this.setLocalStorage(res)

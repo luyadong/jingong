@@ -1,0 +1,93 @@
+<van-panel title="{{workType}}" status="{{pay}}" use-footer-slot>
+    <view class="weui-form-preview__bd">
+      <van-row class="preview__item">
+          <van-col span="6">
+            <view class="preview__label">工地地址：</view>
+          </van-col>
+          <van-col span="18">
+            <view class="preview__value">{{_address}}</view>
+          </van-col>
+      </van-row>
+      <view class="preview__item">
+        <van-col span="6">
+          <view class="preview__label">开工时间：</view>
+        </van-col>
+        <van-col span="18">
+          <view class="preview__value" style='display: flex; flex: row; justify-content: space-between'>
+            <view style='text-align: left'>{{_date}}</view>
+            <view style='text-align: left'>{{days}}天</view>
+          </view>
+        </van-col>
+      </view>
+      <view class="preview__item">
+        <van-col span='6'>
+          <view class="preview__label">所需人数：</view>
+        </van-col>
+        <van-col span="18">
+          <view class="preview__value">{{people}}人</view>
+        </van-col>
+      </view>
+      <view class="preview__item">
+        <van-col span='6'>
+          <view class="preview__label">施工说明：</view>
+        </van-col>
+        <van-col span='18'>
+          <view class="preview__value">{{remark}}</view>
+        </van-col>
+      </view>
+      <view class="preview__item">
+        <van-col offset="6" span="18">
+          <view class="preview__value">
+                <block wx:for="{{_labels}}" wx:key="*this">
+                  <van-tag plain type="danger" size="medium" style="margin-left: 5rpx">{{item}}</van-tag>
+                </block>
+          </view>
+        </van-col>
+      </view>
+      <view class="preview__item">
+        <van-col span='6'>
+          <view class="preview__label">电话：</view>
+        </van-col>
+        <van-col span='18'>
+          <view class="preview__value">{{phoneNumber}}</view>
+        </van-col>
+      </view>
+      <view class="preview__item">
+        <view class="preview__label">工地照片：</view>
+      </view>
+      <view class="preview__item">
+        <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{images}}" wx:key="*this">
+                    <view class="weui-uploader__file" bindtap="handleImagePreview" id="{{item}}">
+                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
+                    </view>
+                </block>
+            </view>
+        </view>
+      </view>
+    </view>
+
+    <view slot="footer">
+      <van-row>
+        <van-col span="8" style='text-align: center; color: #999; font-size: 28rpx'><van-icon name="manager"/> 21人联系</van-col>
+        <van-col offset="8" span="8" style='text-align: center; color: #999; font-size: 28rpx'>{{_created_at}}</van-col>
+      </van-row>
+    </view>
+</van-panel>
+
+<van-panel title="温馨提示" header-class="panel-header-class" custom-class="panel-custom-class">
+    <view class="weui-form-preview__bd" style='color: red;font-size: 25rpx'>
+      <view>1.根据个人技能接单，乱接单恶略着会被封号处理；</view>
+      <view>2.本平台仅提供信息对接，若发生纠纷问题与本平台无关，请通过法律途径或仲裁部门解决；</view>
+    </view>
+</van-panel>
+
+<view class='confirm' style='width: {{windowWidth}}px;'>
+  <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='finishClick' >结束</view> 
+  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='changeClick' >修改</view> 
+</view>
+<van-notify id="van-notify" />
+
+
+

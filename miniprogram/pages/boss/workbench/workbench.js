@@ -30,10 +30,7 @@ Page({
       })
       return
     }
-    wx.showLoading({
-      title: '正在加载...',
-      mask: true
-    })
+    wx.showNavigationBarLoading()
     var offset = pageSize*(page-1)
     var query = new wx.BaaS.Query()
     query.compare('finish', '=', finish)
@@ -68,8 +65,9 @@ Page({
         pageSize: pageSize,
         endHidden: endHidden
       })
-      wx.hideLoading()
+      wx.hideNavigationBarLoading()
     }, err=> {
+      wx.hideNavigationBarLoading()
       console.log("err==>", err)
     })
   },
@@ -79,9 +77,8 @@ Page({
 
     //设置列表显示的宽度和高度
     const res = wx.getSystemInfoSync()
-    const windowHeight = res.windowHeight*2
     const windowWidth = res.windowWidth
-    var scrollHeight = windowHeight-88-120
+    var scrollHeight = res.windowHeight-45-60
     this.setData({
       scrollHeight: scrollHeight,
       windowWidth: windowWidth
@@ -111,12 +108,7 @@ Page({
       return true
     }
     var page = this.data.page + 1
-    wx.showLoading({
-      title: '正在加载...',
-      mask: true
-    })
     this.queryWorkList(this.data.currentTab, page, this.data.pageSize, "down")
-    wx.hideLoading()
   },
 
   //该方法绑定了页面滚动时的事件，我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。

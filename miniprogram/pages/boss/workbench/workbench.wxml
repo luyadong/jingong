@@ -10,9 +10,9 @@
   scroll-top="{{scrollTop}}"
   bindscrolltolower="bindDownLoad" 
   bindscroll="scroll"
-  style='height: {{scrollHeight}}rpx; width: {{windowWidth}}px; margin-top: 88rpx'
+  style='height: {{scrollHeight}}px; width: {{windowWidth}}px; margin-top: 88rpx'
 >
-  <van-panel title="工单类型" status="{{item.workType}}" desc='{{item.status}}' style="display: block; width: {{windowWidth}}px; margin-bottom: 20px" wx:for="{{workList}}" wx:key="_id" use-footer-slot >
+  <van-panel title="{{item.workType}}" status="{{item.status}}" style="display: block; width: {{windowWidth}}px; margin-bottom: 20px" wx:for="{{workList}}" wx:key="_id" use-footer-slot >
       <view class="weui-form-preview__bd" data-id='{{item._id}}' bindtap='checkClick'>
           <view class="weui-form-preview__item">
               <view class="weui-form-preview__label">所在城市</view>
@@ -27,8 +27,8 @@
               <view class="weui-form-preview__value">{{item.date}}</view>
           </view>
           <view class="weui-form-preview__item">
-              <view class="weui-form-preview__label">工单状态</view>
-              <view class="weui-form-preview__value">{{item.status}}</view>
+              <view class="weui-form-preview__label">工时</view>
+              <view class="weui-form-preview__value">{{item.days}}天</view>
           </view>
       </view>
 
@@ -42,7 +42,6 @@
         </view>
       </view>
   </van-panel>
-  <view hidden='{{endHidden}}' ><view style='display: flex; justify-content: center; color: #999; font-size: 0.9em; padding-bottom: 10rpx'>-------全部加载完成-------</view></view>
 </scroll-view>
 <van-dialog id="van-dialog" />
 <van-notify id="van-notify" />

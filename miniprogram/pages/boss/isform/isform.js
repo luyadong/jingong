@@ -93,7 +93,7 @@ Page({
   },
   bindFormDataUpdate: function (e) {
     console.log(e)
-    const Int_colum = ['days', 'pay', 'people', ]
+    const Int_colum = ['days', 'people']
     var key = e.currentTarget.id
     let value = e.detail.value
     if (Int_colum.indexOf(key) !== -1){
@@ -180,8 +180,9 @@ Page({
   submitForm(e) {
     //获取openid
     const openid = wx.getStorageSync('openid')
-    if (!openid){
-      console.log("获取openid失败")
+    const uid = wx.getStorageSync('uid')
+    if (!openid || !uid){
+      console.log("获取用户信息失败")
       return
     }
 
@@ -222,6 +223,7 @@ Page({
         finish: false,
         workType: this.data.workType,
         openid: openid,
+        uid: uid,
         status: '进行中'
       }
       console.log("data==>", data)
