@@ -52,18 +52,20 @@
           <view class="preview__value">{{phoneNumber}}</view>
         </van-col>
       </view>
-      <view class="preview__item">
-        <view class="preview__label">工地照片：</view>
-      </view>
-      <view class="preview__item">
-        <view class="weui-uploader__bd">
-            <view class="weui-uploader__files" id="uploaderFiles">
-                <block wx:for="{{images}}" wx:key="*this">
-                    <view class="weui-uploader__file" bindtap="handleImagePreview" id="{{item}}">
-                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
-                    </view>
-                </block>
-            </view>
+      <view wx:if="{{images.length > 0}}">
+        <view class="preview__item">
+          <view class="preview__label">工地照片：</view>
+        </view>
+        <view class="preview__item">
+          <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                  <block wx:for="{{images}}" wx:key="*this">
+                      <view class="weui-uploader__file" bindtap="handleImagePreview" id="{{item}}">
+                          <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
+                      </view>
+                  </block>
+              </view>
+          </view>
         </view>
       </view>
     </view>
@@ -71,7 +73,7 @@
     <view slot="footer">
       <van-row>
         <van-col span="8" style='text-align: center; color: #999; font-size: 28rpx'><van-icon name="manager"/> 21人联系</van-col>
-        <van-col offset="8" span="8" style='text-align: center; color: #999; font-size: 28rpx'>{{_created_at}}</van-col>
+        <van-col offset="6" span="10" style='text-align: center; color: #999; font-size: 28rpx'>{{_created_at}}</van-col>
       </van-row>
     </view>
 </van-panel>
@@ -83,11 +85,46 @@
     </view>
 </van-panel>
 
+<view class="weui-form-preview__bd" style='margin-bottom: 55px'>
+    <view class="icon-flex">
+        <button 
+        open-type="getUserInfo" 
+        bindgetuserinfo="onGetUserInfo"
+        class="userinfo-avatar"
+        style="background-image: url({{Boss_avatar}})"
+      ></button>
+      <view class="userinfo-nickname">
+        <view>
+          <a bindtap="onGetOpenid">{{Boss_nickname}}</a>
+        </view>
+        <view>
+          <a style='font-size: 20rpx'>未认证</a>
+        </view>
+      </view>
+    </view>
+</view>
+
 <view class='confirm' style='width: {{windowWidth}}px;'>
-  <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='finishClick' >结束</view> 
-  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='changeClick' >修改</view> 
+  <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='leaveMsgClick' >留言</view> 
+  <van-dialog
+    use-slot
+    async-close
+    show="{{ leaveMsgShow }}"
+    show-cancel-button
+    bind:close="leaveMsgClose"
+  >
+    <van-field
+      value="{{ leaveMsg }}"
+      label="留言"
+      type="textarea"
+      autosize
+      bind:change="leaveMsgChange"
+    />
+  </van-dialog>
+  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='callPhoneClick' >电话联系</view> 
 </view>
 <van-notify id="van-notify" />
+<van-dialog id="van-dialog" />
 
 
 

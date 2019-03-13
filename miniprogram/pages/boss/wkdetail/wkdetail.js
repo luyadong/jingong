@@ -1,3 +1,4 @@
+import Notify from '../../../lib/style/vant-weapp/dist/notify/notify'
 var app = getApp();
 var MyTableObject = new wx.BaaS.TableObject('workflow')
 
