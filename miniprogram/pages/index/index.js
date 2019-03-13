@@ -1,4 +1,5 @@
 //index.js
+import Notify from '../../lib/style/vant-weapp/dist/notify/notify'
 const app = getApp()
 
 Page({
@@ -54,15 +55,24 @@ Page({
     var logged = wx.getStorageSync("logged")
     if (!logged) {
       wx.BaaS.handleUserInfo(data).then(res => {
-        consoel.log(res)
+        console.log(res)
         this.setLocalStorage(res)
-      }, res => {
-        this.setLocalStorage(res)
+        wx.redirectTo({
+          url: '../worker/list/list',
+        })
+      }, err => {
+        Notify({
+          text: '获取工单id失败',
+          duration: 1000,
+          backgroundColor: '#1989fa'
+        });
+      })
+    }else{
+      wx.redirectTo({
+        url: '../worker/list/list',
       })
     }
-    wx.redirectTo({
-        url: '../worker/list/list',
-    })
+
   },
 
   onBossRediect: function (data) {
@@ -71,13 +81,22 @@ Page({
       wx.BaaS.handleUserInfo(data).then(res => {
         console.log(res)
         this.setLocalStorage(res)
-      }, res => {
-        this.setLocalStorage(res)
+        wx.redirectTo({
+          url: '../boss/issue/issue',
+        })
+      }, err => {
+        Notify({
+          text: 'err',
+          duration: 1000,
+          backgroundColor: '#1989fa'
+        });
+      })
+    }else{
+      wx.redirectTo({
+        url: '../boss/issue/issue',
       })
     }
-    wx.redirectTo({
-        url: '../boss/issue/issue',
-    })
+
   },
 
 })
