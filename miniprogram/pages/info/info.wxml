@@ -1,0 +1,41 @@
+<!--miniprogram/pages/info/info.wxml-->
+<van-steps
+  steps="{{ steps }}"
+  active="{{ active }}"
+  custom-class="demo-margin-bottom"
+/>
+
+<view wx:if="{{active==0}}" style='margin-top:30px;'>
+  <view class="weui-cells weui-cells_after-title">
+            
+              <view class="weui-cell weui-cell_input weui-cell_vcode">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">手机号</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" placeholder="请输入手机号" />
+                  </view>
+                  <view class="weui-cell__ft">
+                      <view class="weui-vcode-btn">获取验证码</view>
+                  </view>
+              </view>
+             
+              <view class="weui-cell weui-cell_input weui-cell_vcode">
+                  <view class="weui-cell__hd">
+                      <view class="weui-label">验证码</view>
+                  </view>
+                  <view class="weui-cell__bd">
+                      <input class="weui-input" placeholder="请输入验证码" />
+                  </view>
+                  <view class="weui-cell__ft">
+                      <image class="weui-vcode-img" src="" style="width: 108px"></image>
+                  </view>
+              </view>
+  </view>
+</view>
+<view wx:elif="{{active==1}}" style='margin-top:30px;'>
+  身份上传
+</view>
+<view wx:else style='margin-top:30px;'>
+  身份信息
+</view>

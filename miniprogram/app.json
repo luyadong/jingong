@@ -10,7 +10,8 @@
     "pages/worker/list/list",
     "pages/worker/jobdetail/index",
     "pages/worker/workbench/workbench",
-    "pages/worker/uc/uc"
+    "pages/worker/uc/uc",
+    "pages/info/info"
   ],
   "window": {
     "backgroundColor": "#F6F2EF",

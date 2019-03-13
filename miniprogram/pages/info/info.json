@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "van-steps": "/lib/style/vant-weapp/dist/steps/index"
+  }
+}

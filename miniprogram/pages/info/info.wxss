@@ -1,0 +1,2 @@
+/* miniprogram/pages/info/info.wxss */
+@import "../../lib/style/weui/weui.wxss";
