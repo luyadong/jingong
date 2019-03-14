@@ -89,7 +89,6 @@ Page({
     this.setData({
       bargain: e.detail.value,
     })
-    console.log("bargain==>", this.data.bargain)
   },
   bindFormDataUpdate: function (e) {
     console.log(e)

@@ -68,7 +68,6 @@ Page({
 
           const created_at = dataList[i].created_at
           const _created_at = creatIimeHandle(created_at)
-          console.log("_created_at==>", _created_at)
           workList.push({
             ...dataList[i],
             date: date,
@@ -77,7 +76,6 @@ Page({
           })
         }
       }
-      console.log("workList===>", workList)
       //判断是否数据是否到底
       var endHidden = true
       if (total_count <= page * pageSize) {
@@ -92,7 +90,6 @@ Page({
       wx.hideNavigationBarLoading()
     }, err => {
       wx.hideNavigationBarLoading()
-      console.log("err==>", err)
     })
   },
 
@@ -157,7 +154,6 @@ Page({
   //到底部加载更多
   bindDownLoad: function () {
     //如果是向下划到底加载数据，判断是否上次加载完成的是否是否到底，到底的话不在去服务端请求
-    console.log("hidden==>", this.data.endHidden)
     if (!this.data.endHidden) {
       return true
     }
@@ -167,7 +163,6 @@ Page({
 
   //查看工单
   checkClick: function (e) {
-    console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
       url: '/pages/worker/jobdetail/index?id=' + e.currentTarget.dataset.id,
     })

@@ -1,8 +1,10 @@
 import { creatIimeHandle } from '../../../lib/utils/common.js'
 import Notify from '../../../lib/style/vant-weapp/dist/notify/notify'
 import Dialog from '../../../lib/style/vant-weapp/dist/dialog/dialog'
+import Toast from '../../../lib/style/vant-weapp/dist/toast/toast'
 var app = getApp();
-var MyTableObject = new wx.BaaS.TableObject('workflow')
+var WorkFlowObject = new wx.BaaS.TableObject('workflow')
+var ContactObject = new wx.BaaS.TableObject('contact')
 
 Page({
   data: {
@@ -51,17 +53,15 @@ Page({
   queryWkInfo: function(id) {
     var query = new wx.BaaS.Query()
     query.compare('_id', '=', id)
-    MyTableObject.setQuery(query).find().then(res => {
+    WorkFlowObject.setQuery(query).find().then(res => {
       const wkList = res.data.objects
       if (wkList && wkList.length === 1) {
-        console.log("workList==>", wkList[0])
         const { date, priceMethod, labels, region, address, created_at, uid } = wkList[0]
         //获取发单用户头像和名称
         this.queryBossInfo(uid)
         //数据处理
         const _date = date.split("T")[0]
         const _created_at = creatIimeHandle(created_at)
-        console.log("_created_at==>", _created_at)
         let _labels = []
         for (let j = 0; j < labels.length; j++) {
           if (labels[j].checked) {
@@ -81,7 +81,6 @@ Page({
           _address,
           _created_at
         })
-        console.log(this.data)
       } else {
         Notify({
           text: '获取工单信息失败',
@@ -136,17 +135,52 @@ Page({
 
   //工单留言界面操作
   leaveMsgClose: function(event){
-    if (event.detail === 'confirm') {
-      // 异步关闭弹窗
-      setTimeout(() => {
+    try {
+      if (event.detail === 'confirm') {
+        const uid = wx.getStorageSync('uid')
+        if (!uid) {
+          wx.showToast({
+            title: '获取用户信息失败',
+            icon: 'none',
+          })
+          return
+        }
+        const data = {
+          workId: uid,
+          context: this.data.leaveMsg,
+          workflowId: this.data._id
+        }
+        wx.showLoading({
+          title: '正在加载...',
+          mask: true
+        })
+        let contactRecord = ContactObject.create()
+        contactRecord.set(data).save().then(res=>{
+          Notify({
+            text: '留言成功',
+            duration: 1000,
+            backgroundColor: '#1989fa'
+          });
+          wx.redirectTo({
+            url: "/pages/worker/jobdetail/index?id=" + this.data._id,
+          })
+        },err=>{
+          Notify({
+            text: '留言失败',
+            duration: 1000,
+            backgroundColor: 'red'
+          });
+        })
+        wx.hideLoading()
+        
+      } else {
         this.setData({
           leaveMsgShow: false
         });
-      }, 1000);
-    } else {
-      this.setData({
-        leaveMsgShow: false
-      });
+      }
+    } catch (err) {
+      console.log("err==>",err)
+      Toast("内部错误")
     }
   },
 
@@ -167,6 +201,12 @@ Page({
       const phoneNumber = this.data.phoneNumber
       wx.makePhoneCall({
         phoneNumber: phoneNumber,
+        success(res){
+          console.log(res)
+        },
+        fail(err){
+          console.log(err)
+        }
       })
     }).catch(() => {
       console.log(e)

@@ -88,8 +88,6 @@
 <view class="weui-form-preview__bd" style='margin-bottom: 55px'>
     <view class="icon-flex">
         <button 
-        open-type="getUserInfo" 
-        bindgetuserinfo="onGetUserInfo"
         class="userinfo-avatar"
         style="background-image: url({{Boss_avatar}})"
       ></button>
