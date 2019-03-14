@@ -18,7 +18,6 @@ Page({
   //获取工单数据函数
   queryWorkList: function (page = 1, pageSize = 5, type = null) {
     const openid = wx.getStorageSync('openid')
-    console.log("openid==>", openid)
     if (!openid) {
       wx.showToast({
         title: '获取用户信息失败',
@@ -51,7 +50,6 @@ Page({
           })
         }
       }
-      console.log("workList===>", workList)
       //判断是否数据是否到底
       var endHidden = true
       if (total_count <= page * pageSize) {
@@ -85,7 +83,6 @@ Page({
   //到底部加载更多
   bindDownLoad: function () {
     //如果是向下划到底加载数据，判断是否上次加载完成的是否是否到底，到底的话不在去服务端请求
-    console.log("hidden==>", this.data.endHidden)
     if (!this.data.endHidden) {
       return true
     }
@@ -110,7 +107,6 @@ Page({
     Dialog.confirm({
       title: '确认彻底删除？'
     }).then(() => {
-      console.log(e.currentTarget.dataset.id)
       MyTableObject.delete(e.currentTarget.dataset.id).then(res => {
         this.queryWorkList()
         Notify({
@@ -119,7 +115,6 @@ Page({
           backgroundColor: '#1989fa'
         });
       }, err => {
-        console.log(err)
         this.queryWorkList()
         Notify({
           text: '删除失败',
