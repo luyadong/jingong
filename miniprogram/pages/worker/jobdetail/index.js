@@ -133,84 +133,129 @@ Page({
     })
   },
 
+  //工单留言数据库操作
+  leaveMsgAdd: function(uid){
+    const data = {
+      workId: uid,
+      context: this.data.leaveMsg,
+      workflowId: this.data._id
+    }
+
+    let contactRecord = ContactObject.create()
+    contactRecord.set(data).save().then(res => {
+      Notify({
+        text: '留言成功',
+        duration: 1000,
+        backgroundColor: '#1989fa'
+      });
+      wx.redirectTo({
+        url: "/pages/worker/jobdetail/index?id=" + this.data._id,
+      })
+    }, err => {
+      Notify({
+        text: '留言失败',
+        duration: 1000,
+        backgroundColor: 'red'
+      });
+    })
+  },
+
   //工单留言界面操作
   leaveMsgClose: function(event){
     try {
       if (event.detail === 'confirm') {
         const uid = wx.getStorageSync('uid')
-        if (!uid) {
-          wx.showToast({
-            title: '获取用户信息失败',
-            icon: 'none',
-          })
+        const avatar = wx.getStorageSync('avatarUrl')
+        const nickname = wx.getStorageSync('nickName')
+        if (!uid || !avatar || !nickname) {
+          Toast("获取用户信息失败，请重新登录")
           return
         }
         const data = {
           workId: uid,
           context: this.data.leaveMsg,
-          workflowId: this.data._id
+          workflowId: this.data._id,
+          workerAvatar: avatar,
+          workerNickname: nickname
         }
         wx.showLoading({
           title: '正在加载...',
           mask: true
         })
-        let contactRecord = ContactObject.create()
-        contactRecord.set(data).save().then(res=>{
-          Notify({
-            text: '留言成功',
-            duration: 1000,
-            backgroundColor: '#1989fa'
-          });
-          wx.redirectTo({
-            url: "/pages/worker/jobdetail/index?id=" + this.data._id,
-          })
-        },err=>{
-          Notify({
-            text: '留言失败',
-            duration: 1000,
-            backgroundColor: 'red'
-          });
-        })
-        wx.hideLoading()
-        
+        this.leaveMsgAdd(uid)
+        wx.hideLoading() 
       } else {
         this.setData({
           leaveMsgShow: false
         });
       }
     } catch (err) {
-      console.log("err==>",err)
       Toast("内部错误")
     }
   },
 
-  //留言数据更新
+  //本地留言数据更新
   leaveMsgChange: function(e){
     this.setData({
       leaveMsg: e.detail
     })
   },
 
+  //记录打电话次数
+  recordCallPhone: function () {
+    const workId = wx.getStorageSync('uid')
+    const avatar = wx.getStorageSync('avatarUrl')
+    const nickname = wx.getStorageSync('nickName')
+
+    const workflowId = this.data._id
+    let query = new wx.BaaS.Query()
+    query.compare('workId', '=', workId)
+    query.compare('workflowId', '=', workflowId)
+    query.compare('phone', '=', true)
+    ContactObject.setQuery(query).find().then(res => {
+      const record = res.data.objects
+      console.log("record==>", record)
+      if (record.length < 1 || record[0].callTimes === 0) {
+        const data = {
+          workId,
+          workflowId,
+          callTimes: 1,
+          phone: true,
+          workerAvatar: avatar,
+          workerNickname: nickname
+        }
+        let contactRecord = ContactObject.create()
+        contactRecord.set(data).save()
+      } else {
+        let contactRecord = ContactObject.getWithoutData(record[0].id)
+        contactRecord.set('callTimes', record[0].callTimes + 1)
+        contactRecord.update()
+      }
+    }, err => {
+      console.log(err)
+    })
+  },
+
   //打电话确认
   callPhoneClick: function(e){
+    const that = this
     Dialog.confirm({
       title: '温馨提示',
       message: '1、请提示工长关闭订单，避免接单重复\n2、请不要放鸽子，已经发现，无条件封号。'
     }).then(() => {
-      console.log(e)
       const phoneNumber = this.data.phoneNumber
       wx.makePhoneCall({
         phoneNumber: phoneNumber,
         success(res){
-          console.log(res)
+          that.recordCallPhone()
         },
         fail(err){
-          console.log(err)
+          console.log("err==>", err)
         }
       })
     }).catch(() => {
       console.log(e)
     });
-  }
+  },
 
 })

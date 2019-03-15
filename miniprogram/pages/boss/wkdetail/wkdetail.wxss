@@ -33,7 +33,8 @@ page{
 }
 
 .confirm{
-  position:absolute; 
+  position:fixed; 
+  bottom: 0;
   display: flex; 
   flex-flow: row;
   height: 40px;

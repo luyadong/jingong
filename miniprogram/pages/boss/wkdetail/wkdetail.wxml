@@ -1,79 +1,96 @@
-<van-panel status="{{workType}}" header-class="panel-header-class">
-    <view class="weui-form-preview__bd">
-      <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">计费类型：</view>
-          <view class="weui-form-preview__value">{{_priceMethod}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">工资(元/天)：</view>
-          <view class="weui-form-preview__value">{{pay}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">预估天数：</view>
-          <view class="weui-form-preview__value">{{days}}</view>
-      </view>
-      <view class="weui-form-preview__item">
-          <view class="weui-form-preview__label">所需人数：</view>
-          <view class="weui-form-preview__value">{{people}}</view>
-      </view>
-    </view>
-</van-panel>
-
-<view class="weui-form-preview__bd">
-  <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">所在城市：</view>
-      <view class="weui-form-preview__value">{{region}}</view>
-  </view>
-  <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">详细地址：</view>
-      <view class="weui-form-preview__value">{{address}}</view>
-  </view>
-  <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">开工时间：</view>
-      <view class="weui-form-preview__value">{{_date}}</view>
-  </view>
-  <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">联系人：</view>
-      <view class="weui-form-preview__value">{{phoneNumber}}</view>
-  </view>
-</view>
-
-<view class="weui-form-preview__bd">
-  <view class="weui-form-preview__item"  style='margin-top: 20rpx'>
-      <view class="weui-form-preview__label">施工备注：</view>
-  </view>
-  <view class="weui-form-preview__item" style='text-align: left;'>{{remark}}</view>
-</view>
-
-<view class="weui-form-preview__bd">
-  <view class="weui-form-preview__item"  style='margin-top: 20rpx'>
-      <view class="weui-form-preview__label">标签：</view>
-  </view>
-  <view class="weui-form-preview__item">
-    <view class="weui-form-preview__label">
-          <block wx:for="{{_labels}}" wx:key="*this">
-            <van-tag type="danger" size="large" style="margin-left: 5rpx">{{item}}</van-tag>
-          </block>
-    </view>
-  </view>
-</view>
-
-<view class="weui-form-preview__bd" style='margin-bottom: 20rpx'>
-  <view class="weui-form-preview__item">
-      <view class="weui-form-preview__label">图片：</view>
-  </view>
-  <view class="weui-form-preview__item">
-    <view class="weui-uploader__bd">
-        <view class="weui-uploader__files" id="uploaderFiles">
-            <block wx:for="{{images}}" wx:key="*this">
-                <view class="weui-uploader__file" bindtap="handleImagePreview" id="{{item}}">
-                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
-                </view>
-            </block>
+<scroll-view 
+  scroll-y
+  scroll-top="{{scrollTop}}"
+  bindscrolltolower="bindDownLoad" 
+  bindscroll="scroll"
+  style='height: {{scrollHeight}}px; width: {{windowWidth}}px；;
+>
+  <van-panel title="详情" status="{{workType}}" header-class="panel-header-class">
+      <view class="weui-form-preview__bd">
+        <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">计费类型：</view>
+            <view class="weui-form-preview__value">{{_priceMethod}}</view>
         </view>
+        <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">工资(元/天)：</view>
+            <view class="weui-form-preview__value">{{pay}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">预估天数：</view>
+            <view class="weui-form-preview__value">{{days}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+            <view class="weui-form-preview__label">所需人数：</view>
+            <view class="weui-form-preview__value">{{people}}</view>
+        </view>
+      </view>
+  </van-panel>
+
+  <view class="weui-form-preview__bd">
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">所在城市：</view>
+        <view class="weui-form-preview__value">{{region}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">详细地址：</view>
+        <view class="weui-form-preview__value">{{address}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">开工时间：</view>
+        <view class="weui-form-preview__value">{{_date}}</view>
+    </view>
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">联系人：</view>
+        <view class="weui-form-preview__value">{{phoneNumber}}</view>
     </view>
   </view>
-</view>
+
+  <view class="weui-form-preview__bd">
+    <view class="weui-form-preview__item"  style='margin-top: 20rpx'>
+        <view class="weui-form-preview__label">施工备注：</view>
+    </view>
+    <view class="weui-form-preview__item" style='text-align: left;'>{{remark}}</view>
+  </view>
+
+  <view class="weui-form-preview__bd">
+    <view class="weui-form-preview__item"  style='margin-top: 20rpx'>
+        <view class="weui-form-preview__label">标签：</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view class="weui-form-preview__label">
+            <block wx:for="{{_labels}}" wx:key="*this">
+              <van-tag type="danger" size="large" style="margin-left: 5rpx">{{item}}</van-tag>
+            </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-form-preview__bd" style='margin-bottom: 20rpx'>
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">图片：</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view class="weui-uploader__bd">
+          <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{images}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="handleImagePreview" id="{{item}}">
+                      <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
+                  </view>
+              </block>
+          </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-form-preview__bd" style='margin-bottom: 20px'>
+    <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">留言</view>
+    </view>
+    <view class="weui-form-preview__item">
+      <view>zzz</view>
+    </view>
+  </view>
+</scroll-view>
 
 <view class='confirm' style='width: {{windowWidth}}px;'>
   <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='finishClick' >结束</view> 
