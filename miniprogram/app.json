@@ -1,5 +1,6 @@
 {
-  "pages": [
+  "pages": [ 
+    "pages/info/info",
     "pages/index/index",
     "pages/boss/issue/issue",
     "pages/boss/isform/isform",
@@ -10,8 +11,7 @@
     "pages/worker/list/list",
     "pages/worker/jobdetail/index",
     "pages/worker/workbench/workbench",
-    "pages/worker/uc/uc",
-    "pages/info/info"
+    "pages/worker/uc/uc"  
   ],
   "window": {
     "backgroundColor": "#F6F2EF",

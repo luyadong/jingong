@@ -1,2 +1,11 @@
 /* miniprogram/pages/info/info.wxss */
 @import "../../lib/style/weui/weui.wxss";
+
+.nextCon{
+
+  margin-top: 100px;
+}
+
+.next{
+  width:400rpx;
+}
