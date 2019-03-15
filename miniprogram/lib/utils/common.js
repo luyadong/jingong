@@ -21,7 +21,6 @@ export function creatIimeHandle(create_timeStamp) {
     return format;
   }
   let timeToDate = new Date(create_timeStamp * 1000).format('h:m:s')
-  console.log("timeToDate=>", timeToDate)
   //当天零点零分时间戳
   var curr_zpStamp = new Date(new Date().setHours(0, 0, 0, 0)) / 1000
   //昨天零点零分
