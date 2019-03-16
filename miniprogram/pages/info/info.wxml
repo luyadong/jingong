@@ -38,39 +38,46 @@
 <view wx:elif="{{active==1}}" style='margin-top:30px;'>
     <view class="page__bd">
         <view class="weui-panel weui-panel_access">
-            <view class="weui-panel__hd">手持身份证照片</view>
+            <view class="weui-panel__hd">手持身份证照片(长按删除上传)</view>
             <view class="weui-panel__bd">
-                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" src="/images/handcard.jpg" style='width:80px;'/>
+                <navigator  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-uploader__file" >
+                        <image class="weui-uploader__img" src="/images/handcard.jpg" mode="aspectFill" />
                     </view>
                     <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" style='margin-left:100px;'>
-                        <view class="weui-uploader__input-box">
+                        <view class="weui-uploader__input-box" wx:if="{{handcard==''}}">
                                 <view class="weui-uploader__input"  data-file-type="handcard" bindtap="chooseImage"></view>
                         </view>
+                        <view class="weui-uploader__file" wx:else>
+                            <image class="weui-uploader__img" src="{{handcard}}" mode="aspectFill" bindtap="handleImagePreview" bindlongpress="deleteImage" data-file-type="handcard"/>
+                        </view> 
                     </view>
                 </navigator>
             </view>
         </view>
       </view>
-
+      
       <view class="page__bd">
         <view class="weui-panel weui-panel_access">
-            <view class="weui-panel__hd">身份证照片</view>
+            <view class="weui-panel__hd">身份证照片(长按删除上传)</view>
             <view class="weui-panel__bd">
-                <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" src="/images/idcard.jpg" style='width:80px;'/>
+                <navigator  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-uploader__file" >
+                        <image class="weui-uploader__img" src="/images/idcard.jpg" mode="aspectFill" />
                     </view>
                     <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" style='margin-left:100px;'>
-                        <view class="weui-uploader__input-box">
-                                <view class="weui-uploader__input" bindtap="chooseImage" data-file-type='card'></view>
+                        <view class="weui-uploader__input-box" wx:if="{{card==''}}">
+                                <view class="weui-uploader__input"  data-file-type="card" bindtap="chooseImage"></view>
                         </view>
+                        <view class="weui-uploader__file" wx:else>
+                            <image class="weui-uploader__img" src="{{card}}" mode="aspectFill" bindtap="handleImagePreview" bindlongpress="deleteImage" data-file-type="card"/>
+                        </view> 
                     </view>
                 </navigator>
             </view>
         </view>
       </view>
+    
 </view>
 <view wx:else style='margin-top:30px;'>
   身份信息

@@ -1,11 +1,12 @@
 // miniprogram/pages/info/info.js
 import { promisify } from '../../lib/utils/promise.js'
 var i = 60;
-//全局中取出openid 类似session的作用,
+//全局中取出openid 
 var openid = wx.getStorageSync("openid")
 var ucTable = new wx.BaaS.TableObject("uc")
 let MyFile = new wx.BaaS.File()
 const wxUploadFile = promisify(MyFile.upload)
+
 var recordID = ""
 Page({
 
@@ -22,7 +23,7 @@ Page({
        
       },
       {
-        text: '认证完成'
+        text: '认证审核'
       }
     ],
     active:0, //进度
@@ -31,7 +32,9 @@ Page({
     btnName:"获取验证码",
     isClick:true,
     code:"",
-    isRight:false
+    isRight:false,
+    handcard:"",
+    card:""
   },
 
   /**
@@ -232,8 +235,49 @@ Page({
           }
         )
       }
-    }else if(active==1){
+    } else if (this.data.active==1){
+
+      if (this.data.handcard != "" && this.data.card!=""){
+        var images = {
+          handfileid: this.data.handcard,
+          fileid: this.data.card
+        }
+
+        let MyRecord = ucTable.getWithoutData(recordID)
+        Object.keys(images).forEach(function(key){
+
+          console.log(key, images[key]);
+
+          let fileParams = { filePath: images[key][0] }
+          let metaData = { categoryName: 'jingong' }
+
+          wxUploadFile(fileParams, metaData).then(res =>{
+            console.log("key================"+key)
+           
+            MyRecord.set(key,res.file.id)
+            MyRecord.update().then(res => {
+              // success
+            }, err => {
+              // err
+            })
+          })
+        })
+        MyRecord.set("status", "2")
+        MyRecord.update().then(res => {
+          this.setData({"active":2})
+        }, err => {
+          // err
+        })
       
+      }else{
+        wx.showToast({
+          title: '图片未上传',
+          icon: 'success',
+          duration: 2000
+        })
+
+      }
+        
 
     }else{
 
@@ -249,31 +293,50 @@ Page({
       sourceType: ['album', 'camera'], //可选择性开放访问相册、相机
       success: res => {
         console.log("fileInfo==>", res)
-        let fileParams = { filePath: res.tempFilePaths[0] }
-        let metaData = { categoryName: 'jingong' }
+        if(e.currentTarget.dataset.fileType==="handcard"){
+
+          this.setData({
+            handcard: res.tempFilePaths
+          })
+        }else{
+          this.setData({
+            card: res.tempFilePaths
+          })
+        }
        
-        MyFile.upload(fileParams, metaData).then(res => {
-          let data = res.data  // res.data 为 Object 类型
+      }
+    })
+  },  //点击图片展示大图
+  handleImagePreview: function (e) {
+   
+    const imgUrl = this.data.handcard
+    wx.previewImage({
+      urls: imgUrl
+    })
+  },
+  //长按删除图片
+  deleteImage: function (e) {
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '确定要删除此图片吗？',
+      success: function (res) {
+        if (res.confirm) {
+          console.log('点击确定了');
 
-          console.log("e.currentTarget.dataset.fileType====" + e.currentTarget.dataset.fileType)
-            //根据openid 更新上传文件的文件信息
-          if(e.currentTarget.dataset.fileType==='handcard'){
-            let MyRecord = ucTable.getWithoutData(recordID)
-            MyRecord.set({"handfileid":data.file.id})
-            MyRecord.update().then(res => {
-              // success
-            }, err => {
-              // err
-            })
+          if(e.currentTarget.dataset.fileType==="handcard"){
+            that.setData({handcard:""})
+
+          } else if (e.currentTarget.dataset.fileType === "card"){
+
+            that.setData({ card: "" })
           }
-        
-
-        }, err => {
-          // err
-        }).onProgressUpdate(e => {
-          // 监听上传进度
-          console.log(e)
-        })
+         
+        } else if (res.cancel) {
+          console.log('点击取消了');
+          return false;
+        }
+       
       }
     })
   }
