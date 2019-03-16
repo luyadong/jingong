@@ -13,10 +13,12 @@
                       <view class="weui-label">手机号</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" placeholder="请输入手机号" />
+                      <input class="weui-input"  bindblur='blurPhone' value="{{phone}}" placeholder="请输入手机号" />
                   </view>
                   <view class="weui-cell__ft">
-                      <view class="weui-vcode-btn">获取验证码</view>
+                      <view class="weui-vcode-btn" bindtap='getSms'>
+                        {{btnName}}
+                      </view>
                   </view>
               </view>
              
@@ -25,7 +27,7 @@
                       <view class="weui-label">验证码</view>
                   </view>
                   <view class="weui-cell__bd">
-                      <input class="weui-input" placeholder="请输入验证码" />
+                      <input class="weui-input" placeholder="请输入验证码" bindblur='checkSms' vlaue="{{code}}" />
                   </view>
                   <view class="weui-cell__ft">
                       <image class="weui-vcode-img" src="" style="width: 108px"></image>
@@ -34,8 +36,52 @@
   </view>
 </view>
 <view wx:elif="{{active==1}}" style='margin-top:30px;'>
-  身份上传
+    <view class="page__bd">
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">手持身份证照片(长按删除上传)</view>
+            <view class="weui-panel__bd">
+                <navigator  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-uploader__file" >
+                        <image class="weui-uploader__img" src="/images/handcard.jpg" mode="aspectFill" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" style='margin-left:100px;'>
+                        <view class="weui-uploader__input-box" wx:if="{{handcard==''}}">
+                                <view class="weui-uploader__input"  data-file-type="handcard" bindtap="chooseImage"></view>
+                        </view>
+                        <view class="weui-uploader__file" wx:else>
+                            <image class="weui-uploader__img" src="{{handcard}}" mode="aspectFill" bindtap="handleImagePreview" bindlongpress="deleteImage" data-file-type="handcard"/>
+                        </view> 
+                    </view>
+                </navigator>
+            </view>
+        </view>
+      </view>
+      
+      <view class="page__bd">
+        <view class="weui-panel weui-panel_access">
+            <view class="weui-panel__hd">身份证照片(长按删除上传)</view>
+            <view class="weui-panel__bd">
+                <navigator  class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+                    <view class="weui-uploader__file" >
+                        <image class="weui-uploader__img" src="/images/idcard.jpg" mode="aspectFill" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg" style='margin-left:100px;'>
+                        <view class="weui-uploader__input-box" wx:if="{{card==''}}">
+                                <view class="weui-uploader__input"  data-file-type="card" bindtap="chooseImage"></view>
+                        </view>
+                        <view class="weui-uploader__file" wx:else>
+                            <image class="weui-uploader__img" src="{{card}}" mode="aspectFill" bindtap="handleImagePreview" bindlongpress="deleteImage" data-file-type="card"/>
+                        </view> 
+                    </view>
+                </navigator>
+            </view>
+        </view>
+      </view>
+    
 </view>
 <view wx:else style='margin-top:30px;'>
   身份信息
+</view>
+<view class='nextCon' wx:if="{{active!=2}}">
+  <button class="weui-btn next" type="primary" plain="true" bindtap='next'>下一步</button>
 </view>
