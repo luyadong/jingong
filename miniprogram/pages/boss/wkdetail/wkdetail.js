@@ -1,4 +1,5 @@
 import Notify from '../../../lib/style/vant-weapp/dist/notify/notify'
+import Toast from '../../../lib/style/vant-weapp/dist/toast/toast'
 import { creatIimeHandle } from '../../../lib/utils/common.js'
 var app = getApp();
 var MyTableObject = new wx.BaaS.TableObject('workflow')
@@ -6,8 +7,12 @@ var ContactObject = new wx.BaaS.TableObject('contact')
 
 Page({
   data: {
+    leaveMsgInfo: [],
     scrollTop: 0,
     scrollHeight: 998,
+    page: 1,
+    pageSize: 5,
+    end: false
   },
 
   onLoad: function (options) {
@@ -103,37 +108,59 @@ Page({
   },
 
   //获取留言、电话信息
-  getContactInfo: function(workflowId){
+  getContactInfo: function (workflowId, page = 1, pageSize=5, type=null){
     try {
-      const leaveMsgInfo = []
+      wx.showNavigationBarLoading()
+      var offset = pageSize * (page - 1)
       var query = new wx.BaaS.Query()
       query.compare('workflowId', '=', workflowId)
-      ContactObject.setQuery(query).orderBy(['-updated_at', 'workId']).find().then(res=>{
+      ContactObject.setQuery(query).orderBy(['-updated_at', 'workId']).limit(pageSize).offset(offset).find().then(res=>{
         const dataList = res.data.objects
+        const { total_count } = res.data.meta
         console.log("dataList===>", dataList)
         if (!dataList || dataList.length < 1){
           return
         }
-        for (let i=0;i<dataList.length;i++){
-          const { workerAvatar, workerNickname, update_at, context, callTimes, phone} = dataList[i]
-          const _update_at = update_at
-          leaveMsgInfo.push({
-            workerAvatar,
-            workerNickname,
-            update_at,
-            context,
-            callTimes,
-            phone
+        let _dataList = []
+        for (let i=0; i<dataList.length; i++){
+          const { callTimes, context, phone, updated_at, workerAvatar, workerNickname} = dataList[i]
+          console.log("updated_at==>", updated_at)
+          const _updated_at = creatIimeHandle(updated_at)
+          _dataList.push({
+            callTimes, 
+            context, 
+            phone, 
+            _updated_at, 
+            workerAvatar, 
+            workerNickname
           })
+          console.log("_dataList==>", _dataList)
         }
+        var leaveMsgInfo = []
+        if (type='down'){
+          leaveMsgInfo = this.data.leaveMsgInfo
+        }
+        _dataList.map(item=>leaveMsgInfo.push(item))
+        //判断是否数据是否到底
+        var end = true
+        if (total_count <= page * pageSize) {
+          end = false
+        }
+
         this.setData({
           leaveMsgInfo,
+          end,
         })
+        wx.hideNavigationBarLoading()
       },err=>{
+        wx.hideNavigationBarLoading()
+        console.log("err", err)
         Toast("获取留言信息失败")
         return
       })
     } catch (err) {
+      wx.hideNavigationBarLoading()
+      console.log("err1", err)
       Toast("获取留言信息失败")
       return
     }
@@ -172,7 +199,12 @@ Page({
   //到底部加载更多
   bindDownLoad: function () {
     //如果是向下划到底加载数据，判断是否上次加载完成的是否是否到底，到底的话不在去服务端请求
-    console.log("down")
+    console.log("hidden==>", this.data.end)
+    if (!this.data.end) {
+      return true
+    }
+    var page = this.data.page + 1
+    this.getContactInfo(this.data._id, page, this.data.pageSize, "down")
   },
 
   //该方法绑定了页面滚动时的事件，我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
