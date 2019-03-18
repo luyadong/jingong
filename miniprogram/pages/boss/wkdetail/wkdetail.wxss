@@ -46,3 +46,22 @@ page{
   font-weight: bold;
   font-size: 35rpx;
 }
+
+.userinfo-avatar {
+  width: 50rpx;
+  height: 50rpx;
+  margin-left: 15px;
+  border-radius: 80%;
+  background-size: cover;
+  /* background-color: white; */
+}
+
+.row-class {
+  padding-bottom: 30px;
+  color: #999;
+  font-size: .8em;
+}
+
+.context-class {
+  padding-top: 10px;
+}

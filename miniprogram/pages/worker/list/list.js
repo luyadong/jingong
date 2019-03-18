@@ -67,7 +67,7 @@ Page({
           }
 
           const created_at = dataList[i].created_at
-          const _created_at = creatIimeHandle(created_at)
+          const _created_at = creatIimeHandle(created_at) + "发布"
           workList.push({
             ...dataList[i],
             date: date,

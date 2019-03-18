@@ -61,7 +61,7 @@ Page({
         this.queryBossInfo(uid)
         //数据处理
         const _date = date.split("T")[0]
-        const _created_at = creatIimeHandle(created_at)
+        const _created_at = creatIimeHandle(created_at) + "发布"
         let _labels = []
         for (let j = 0; j < labels.length; j++) {
           if (labels[j].checked) {
@@ -133,35 +133,8 @@ Page({
     })
   },
 
-  //工单留言数据库操作
-  leaveMsgAdd: function(uid){
-    const data = {
-      workId: uid,
-      context: this.data.leaveMsg,
-      workflowId: this.data._id
-    }
-
-    let contactRecord = ContactObject.create()
-    contactRecord.set(data).save().then(res => {
-      Notify({
-        text: '留言成功',
-        duration: 1000,
-        backgroundColor: '#1989fa'
-      });
-      wx.redirectTo({
-        url: "/pages/worker/jobdetail/index?id=" + this.data._id,
-      })
-    }, err => {
-      Notify({
-        text: '留言失败',
-        duration: 1000,
-        backgroundColor: 'red'
-      });
-    })
-  },
-
   //工单留言界面操作
-  leaveMsgClose: function(event){
+  leaveMsgClose: function (event) {
     try {
       if (event.detail === 'confirm') {
         const uid = wx.getStorageSync('uid')
@@ -182,14 +155,32 @@ Page({
           title: '正在加载...',
           mask: true
         })
-        this.leaveMsgAdd(uid)
-        wx.hideLoading() 
+        let contactRecord = ContactObject.create()
+        contactRecord.set(data).save().then(res => {
+          Notify({
+            text: '留言成功',
+            duration: 1000,
+            backgroundColor: '#1989fa'
+          });
+          wx.redirectTo({
+            url: "/pages/worker/jobdetail/index?id=" + this.data._id,
+          })
+        }, err => {
+          Notify({
+            text: '留言失败',
+            duration: 1000,
+            backgroundColor: 'red'
+          });
+        })
+        wx.hideLoading()
+
       } else {
         this.setData({
           leaveMsgShow: false
         });
       }
     } catch (err) {
+      console.log("err==>", err)
       Toast("内部错误")
     }
   },

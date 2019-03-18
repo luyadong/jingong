@@ -33,19 +33,19 @@ export function creatIimeHandle(create_timeStamp) {
   var formate_time
   if (create_timeStamp > curr_stamp - 3600 && create_timeStamp <= curr_stamp) {
     const minute = (create_timeStamp > curr_stamp) / 60 + 1
-    formate_time = `${minute}分钟前发布`
+    formate_time = `${minute}分钟前`
   } else if (create_timeStamp > curr_zpStamp && create_timeStamp <= curr_stamp - 3600) {
     const time = new Date(create_timeStamp * 1000).format('h:m')
-    formate_time = `今天 ${time}发布`
+    formate_time = `今天 ${time}`
   } else if (create_timeStamp > yestday_zpstamp && create_timeStamp <= curr_zpStamp) {
     const time = new Date(create_timeStamp * 1000).format('h:m')
-    formate_time = `昨天 ${time}发布`
+    formate_time = `昨天 ${time}`
   } else if (create_timeStamp > bfyestday_zpstamp && create_timeStamp <= yestday_zpstamp) {
     const time = new Date(create_timeStamp * 1000).format('h:m')
-    formate_time = `前天 ${time}发布`
+    formate_time = `前天 ${time}`
   } else {
     const time = new Date(create_timeStamp * 1000).format('yyyy-MM-dd h:m')
-    formate_time = `${time}发布`
+    formate_time = `${time}`
   }
   return formate_time
 }

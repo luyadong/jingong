@@ -82,21 +82,40 @@
     </view>
   </view>
 
-  <view class="weui-form-preview__bd" style='margin-bottom: 20px'>
-    <view class="weui-form-preview__item">
-        <view class="weui-form-preview__label">留言</view>
-    </view>
-    <view class="weui-form-preview__item">
-      <view>zzz</view>
-    </view>
-  </view>
+  <van-row><van-col><view style='padding-left: 15px; padding-bottom: 20px; color: #999;font-size: .9em'>联系记录：</view></van-col></van-row>
+  <van-row custom-class='row-class' wx:for="{{leaveMsgInfo}}" wx:key="_id">
+    <van-col span="3">
+      <button
+        class="userinfo-avatar"
+        style="background-image: url({{item.workerAvatar}})"
+      ></button>
+    </van-col>
+    <van-col span='21'>
+      <van-row>
+        <van-col span='8'>{{item.workerNickname}}</van-col>
+        <van-col span='16'><view style='padding-right: 15px; text-align: right'>{{item._updated_at}}</view></van-col>
+      </van-row>
+      <van-row custom-class='context-class'>
+        <view wx:if="{{item.phone}}">
+          <van-col><view style='color: #000;'>电话{{item.callTimes}}次</view></van-col>
+        </view>
+        <view wx:else>
+          <van-col><view style='color: #000;'>{{item.context}}</view></van-col>
+        </view>
+      </van-row>
+    </van-col>
+  </van-row>
+
+
+
 </scroll-view>
 
 <view class='confirm' style='width: {{windowWidth}}px;'>
   <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='finishClick' >结束</view> 
-  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='changeClick' >修改</view> 
+  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='changeClick' >重发</view> 
 </view>
 <van-notify id="van-notify" />
-
+<van-dialog id="van-dialog" />
+<van-toast id="van-toast" />
 
 
