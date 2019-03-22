@@ -7,6 +7,7 @@
     "van-tag": "/lib/style/vant-weapp/dist/tag/index",
     "van-notify": "/lib/style/vant-weapp/dist/notify/index",
     "van-dialog": "/lib/style/vant-weapp/dist/dialog/index",
-    "van-field": "/lib/style/vant-weapp/dist/field/index"
+    "van-field": "/lib/style/vant-weapp/dist/field/index",
+    "van-toast": "/lib/style/vant-weapp/dist/toast/index"
   }
 }
