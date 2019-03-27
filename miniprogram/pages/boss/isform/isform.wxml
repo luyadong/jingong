@@ -148,7 +148,7 @@
                             <view class="weui-uploader__files" id="uploaderFiles">
                                 <block wx:for="{{images}}" wx:key="*this">
                                     <view class="weui-uploader__file" bindtap="handleImagePreview" bindlongpress="deleteImage" id="{{item}}">
-                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-idx="{{index}}"/>
+                                        <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" data-='idx="{{index}}"'/>
                                     </view>
                                 </block>
                             </view>

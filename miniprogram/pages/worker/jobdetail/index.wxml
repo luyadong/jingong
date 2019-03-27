@@ -102,27 +102,31 @@
     </view>
 </view>
 
-<view class='confirm' style='width: {{windowWidth}}px;'>
-  <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='leaveMsgClick' >留言</view> 
-  <van-dialog
-    use-slot
-    async-close
-    show="{{ leaveMsgShow }}"
-    show-cancel-button
-    bind:close="leaveMsgClose"
-  >
-    <van-field
-      value="{{ leaveMsg }}"
-      label="留言"
-      type="textarea"
-      autosize
-      bind:change="leaveMsgChange"
-    />
-  </van-dialog>
-  <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='callPhoneClick' >电话联系</view> 
+<view wx:if="{{ finish === false}}">
+  <view class='confirm' style='width: {{windowWidth}}px;'>
+    <view style='text-align: center; width: 50%; background-color: #fff;' data-id='{{_id}}' bindtap='leaveMsgClick' >留言</view> 
+    <van-dialog
+      use-slot
+      async-close
+      show="{{ leaveMsgShow }}"
+      show-cancel-button
+      bind:close="leaveMsgClose"
+    >
+      <van-field
+        value="{{ leaveMsg }}"
+        label="留言"
+        type="textarea"
+        autosize
+        bind:change="leaveMsgChange"
+      />
+    </van-dialog>
+    <view style='text-align: center; width: 50%; background-color: red; color: #fff;' data-id='{{_id}}' bindtap='callPhoneClick' >电话联系</view> 
+  </view>
 </view>
+
 <van-notify id="van-notify" />
 <van-dialog id="van-dialog" />
+<van-toast id="van-toast" />
 
 
 

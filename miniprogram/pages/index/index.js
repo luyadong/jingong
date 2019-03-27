@@ -55,7 +55,7 @@ Page({
     var logged = wx.getStorageSync("logged")
     if (!logged) {
       wx.BaaS.handleUserInfo(data).then(res => {
-        console.log("用户信息"+res)
+        console.log(res)
         this.setLocalStorage(res)
         wx.redirectTo({
           url: '../worker/list/list',

@@ -81,6 +81,7 @@ Page({
           _address,
           _created_at
         })
+        console.log("data==>", this.data)
       } else {
         Notify({
           text: '获取工单信息失败',
@@ -144,36 +145,53 @@ Page({
           Toast("获取用户信息失败，请重新登录")
           return
         }
-        const data = {
-          workId: uid,
-          context: this.data.leaveMsg,
-          workflowId: this.data._id,
-          workerAvatar: avatar,
-          workerNickname: nickname
-        }
-        wx.showLoading({
-          title: '正在加载...',
-          mask: true
-        })
-        let contactRecord = ContactObject.create()
-        contactRecord.set(data).save().then(res => {
-          Notify({
-            text: '留言成功',
-            duration: 1000,
-            backgroundColor: '#1989fa'
-          });
-          wx.redirectTo({
-            url: "/pages/worker/jobdetail/index?id=" + this.data._id,
-          })
-        }, err => {
-          Notify({
-            text: '留言失败',
-            duration: 1000,
-            backgroundColor: 'red'
-          });
-        })
-        wx.hideLoading()
 
+        let query = new wx.BaaS.Query()
+        query.compare('workId', '=', uid)
+        query.compare('workflowId', '=', this.data._id)
+        query.compare('phone', '=', false)
+        ContactObject.setQuery(query).find().then(res => {
+          const record = res.data.objects
+          if (record.length > 0){
+            Toast("你已经留言过，请打电话联系")
+            this.setData({
+              leaveMsgShow: false
+            })
+            return
+          }else{
+            const data = {
+              workId: uid,
+              context: this.data.leaveMsg,
+              workflowId: this.data._id,
+              workerAvatar: avatar,
+              workerNickname: nickname
+            }
+            wx.showLoading({
+              title: '正在加载...',
+              mask: true
+            })
+            let contactRecord = ContactObject.create()
+            contactRecord.set(data).save().then(res => {
+              Notify({
+                text: '留言成功',
+                duration: 1000,
+                backgroundColor: '#1989fa'
+              });
+              wx.redirectTo({
+                url: "/pages/worker/jobdetail/index?id=" + this.data._id,
+              })
+            }, err => {
+              Notify({
+                text: '留言失败',
+                duration: 1000,
+                backgroundColor: 'red'
+              });
+            })
+            wx.hideLoading()
+          }
+        },err=>{
+          Toast("获取留言信息失败")
+        })
       } else {
         this.setData({
           leaveMsgShow: false

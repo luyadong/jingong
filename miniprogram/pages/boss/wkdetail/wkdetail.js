@@ -119,6 +119,7 @@ Page({
         const { total_count } = res.data.meta
         console.log("dataList===>", dataList)
         if (!dataList || dataList.length < 1){
+          wx.hideNavigationBarLoading()
           return
         }
         let _dataList = []
